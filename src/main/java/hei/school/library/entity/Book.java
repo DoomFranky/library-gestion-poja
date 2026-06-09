@@ -1,0 +1,30 @@
+package hei.school.library.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import java.time.Instant;
+import java.time.LocalDate;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name="book")
+public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    private String isbn;
+
+    @OneToOne
+    private Genre genre;
+
+    @OneToOne
+    private Format format;
+    private String title;
+    private LocalDate publishDate;
+    private String description;
+    private Instant created_at;
+
+}
