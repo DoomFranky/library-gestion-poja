@@ -20,7 +20,7 @@ public class BookController {
             List<Book> listOfBooks = bookService.findAll();
             return ResponseEntity.ok().body(listOfBooks);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 }
