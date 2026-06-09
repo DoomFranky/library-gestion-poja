@@ -3,6 +3,7 @@ package hei.school.library.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import hei.school.library.entity.Book;
 import hei.school.library.repository.BookRepository;
@@ -17,11 +18,19 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-   public Book ajouterLivre(Book livre) {
+   public Book addBook(Book livre) {
         return bookRepository.save(livre);
     } 
     
-      public void supprimerLivre(Integer id) {
+      public void deleleteBook(Integer id) {
         bookRepository.deleteById(id);
+    }
+
+    public Book getBookByTitle(String title){
+       return bookRepository.findBytitle(title); 
+    }
+
+    public List<Book> getBookByAuthorName(@RequestParam String name){
+        return bookRepository.findByAuthorName(name);
     }
 }

@@ -2,6 +2,7 @@ package hei.school.library.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +26,14 @@ public class BookController {
         return bookService.getAllBooks();
     }
 
-     @PostMapping
+     @PostMapping("/add")
     public Book add(@RequestBody Book book) {
-        return bookService.ajouterLivre(book);
+        return bookService.addBook(book);
+    }
+
+    @DeleteMapping("/delete")
+    public void delete(@RequestBody Integer id){
+         bookService.deleleteBook(id);
+         System.out.println("book delete");
     }
 }

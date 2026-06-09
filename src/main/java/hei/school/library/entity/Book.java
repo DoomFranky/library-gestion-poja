@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,6 +39,10 @@ public class Book {
     private GenreEnum genre;
 
     private Instant createDatetime;
+
+    @ManyToOne
+    @JoinColumn(name="idAuthor")
+    private Author author;
 
     @Enumerated(EnumType.STRING)
     private Format format;
