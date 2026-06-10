@@ -8,6 +8,8 @@ import hei.school.library.exception.BadRequestException;
 import hei.school.library.repository.BookRepository;
 import java.util.ArrayList;
 import java.util.List;
+
+import hei.school.library.service.BookService;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
