@@ -16,7 +16,9 @@ import lombok.Setter;
 public class BookFormat {
 
   @Id private Integer id;
-  private String label;
+  private String size;
+  private Format format;
 
-  @OneToMany private List<Book> books;
+  @OneToMany
+  private List<Book> books;
 }

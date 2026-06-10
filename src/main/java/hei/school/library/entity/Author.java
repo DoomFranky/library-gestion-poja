@@ -19,6 +19,4 @@ import lombok.Setter;
 public class Author {
   @Id private Integer idAuthor;
   private String name;
-
-  @OneToMany private List<Book> books;
 }

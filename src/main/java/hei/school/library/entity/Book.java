@@ -3,6 +3,8 @@ package hei.school.library.entity;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,11 +36,19 @@ public class Book {
 
   private Instant createDatetime;
 
+  @ManyToMany
+  @JoinTable(
+      name = "book_author",
+      joinColumns = @JoinColumn(name = "book_id"),
+      inverseJoinColumns = @JoinColumn(name = "author_id")
+  )
+  private List<Author> author;
+
   @ManyToOne
-  @JoinColumn(name = "idAuthor")
-  private Author author;
+  @JoinColumn(name = "fk_book_format")
+  private BookFormat bookFormat;
 
-  @ManyToOne private BookFormat bookFormat;
-
-  @ManyToOne private Library library;
+  @ManyToOne
+  @JoinColumn(name ="fk_library")
+  private Library library;
 }
