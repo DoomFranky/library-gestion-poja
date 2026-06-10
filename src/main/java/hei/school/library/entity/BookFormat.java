@@ -1,13 +1,16 @@
 package hei.school.library.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "format")
 public class BookFormat {
@@ -15,24 +18,5 @@ public class BookFormat {
   @Id private Integer id;
   private String label;
 
-  public BookFormat(Integer id, String label) {
-    this.id = id;
-    this.label = label;
-  }
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public String getLabel() {
-    return label;
-  }
-
-  public void setLabel(String label) {
-    this.label = label;
-  }
+  @OneToMany private List<Book> books;
 }

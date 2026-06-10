@@ -30,7 +30,7 @@ public class BookService {
     if (bookToPut.getGenre() == null) {
       throw new BadRequestException("the book.genre must be defined");
     }
-    if (bookToPut.getFormat() == null) {
+    if (bookToPut.getBookFormat() == null) {
       throw new BadRequestException("the book.format must be defined");
     }
     return bookRepository.save(bookToPut);
