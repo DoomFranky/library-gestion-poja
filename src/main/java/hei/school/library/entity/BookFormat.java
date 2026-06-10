@@ -15,7 +15,9 @@ import lombok.Setter;
 @Table(name = "format")
 public class BookFormat {
 
-  @Id private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
   private String size;
   private Format format;
 

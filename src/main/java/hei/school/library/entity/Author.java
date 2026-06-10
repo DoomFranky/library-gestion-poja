@@ -1,9 +1,7 @@
 package hei.school.library.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +15,8 @@ import lombok.Setter;
 @Setter
 @Table(name = "Author")
 public class Author {
-  @Id private Integer idAuthor;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
   private String name;
 }

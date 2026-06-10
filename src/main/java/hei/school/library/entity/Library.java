@@ -1,8 +1,7 @@
 package hei.school.library.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Library {
-  @Id private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
 
   @OneToMany private List<Book> books;
 }
