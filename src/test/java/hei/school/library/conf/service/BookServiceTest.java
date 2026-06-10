@@ -1,4 +1,4 @@
-package hei.school.library.service;
+package hei.school.library.conf.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;

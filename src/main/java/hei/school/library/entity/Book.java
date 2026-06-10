@@ -38,6 +38,7 @@ public class Book {
   @JoinColumn(name = "idAuthor")
   private Author author;
 
-  @Enumerated(EnumType.STRING)
-  private Format format;
+  @ManyToOne private BookFormat bookFormat;
+
+  @ManyToOne private Library library;
 }
