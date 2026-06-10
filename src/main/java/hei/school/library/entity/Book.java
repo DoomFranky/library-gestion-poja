@@ -27,8 +27,6 @@ public class Book {
 
   private LocalDate publishDate;
 
-  private Double unitPrice;
-
   private String description;
 
   private String urlImage;
@@ -46,9 +44,8 @@ public class Book {
   )
   private List<Author> author;
 
-  @ManyToOne
-  @JoinColumn(name = "fk_book_format")
-  private BookFormat bookFormat;
+  @OneToMany
+  private List<BookFormat> bookFormat;
 
   @ManyToOne
   @JoinColumn(name ="fk_library")

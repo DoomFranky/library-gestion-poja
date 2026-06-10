@@ -21,6 +21,7 @@ public class BookFormat {
   private String size;
   private Format format;
 
-  @OneToMany
-  private List<Book> books;
+  @ManyToOne
+  @JoinColumn(name = "fk_book")
+  private Book books;
 }
