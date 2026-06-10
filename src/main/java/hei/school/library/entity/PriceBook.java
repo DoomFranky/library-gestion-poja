@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "price_book")
 public class PriceBook {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

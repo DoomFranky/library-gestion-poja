@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "format")
+@Table(name = "book_format")
 public class BookFormat {
 
   @Id

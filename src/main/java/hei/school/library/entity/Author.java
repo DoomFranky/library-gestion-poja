@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "Author")
+@Table(name = "author")
 public class Author {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
