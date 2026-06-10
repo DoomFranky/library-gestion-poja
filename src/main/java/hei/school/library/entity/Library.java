@@ -3,18 +3,15 @@ package hei.school.library.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Library {
-    @Id
-    private Integer id;
+  @Id private Integer id;
 
-    @OneToMany
-    private List<Book> books;
+  @OneToMany private List<Book> books;
 }

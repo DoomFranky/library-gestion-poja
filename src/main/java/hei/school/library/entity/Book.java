@@ -1,52 +1,47 @@
 package hei.school.library.entity;
 
+import jakarta.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name="book")
+@Table(name = "book")
 public class Book {
-    @Id
-    private Integer id;
+  @Id private Integer id;
 
-    private String isbn;
+  private String isbn;
 
-    private String title;
+  private String title;
 
-    private LocalDate publishDate;
+  private LocalDate publishDate;
 
-    private Double unitPrice;
+  private Double unitPrice;
 
-    private String description;
+  private String description;
 
-    private String urlImage;
-  
-    @OneToOne
-    private BookGenre genre;
+  private String urlImage;
 
-    @OneToOne
-    private BookFormat format;
+  @OneToOne private BookGenre genre;
 
-    @Enumerated(EnumType.STRING)
-    private GenreEnum genre;
+  @OneToOne private BookFormat format;
 
-    private Instant createDatetime;
+  @Enumerated(EnumType.STRING)
+  private GenreEnum genre;
 
-    @ManyToOne
-    @JoinColumn(name="idAuthor")
-    private Author author;
+  private Instant createDatetime;
 
-    @Enumerated(EnumType.STRING)
-    private Format format;
+  @ManyToOne
+  @JoinColumn(name = "idAuthor")
+  private Author author;
 
+  @Enumerated(EnumType.STRING)
+  private Format format;
 }

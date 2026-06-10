@@ -1,4 +1,3 @@
 package hei.school.library.entity;
 
-public class BookGenre {
-}
+public class BookGenre {}

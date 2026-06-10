@@ -11,10 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name="Author")
+@Table(name = "Author")
 public class Author {
-    @Id
-    private Integer idAuthor;
-    private String firstName;
-    private String lastName;
+  @Id private Integer idAuthor;
+  private String firstName;
+  private String lastName;
 }
