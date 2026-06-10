@@ -5,19 +5,20 @@ import hei.school.library.exception.BadRequestException;
 import hei.school.library.repository.BookRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class BookService {
-    private BookRepository bookRepository;
-
-    public List<Book> findAll () {
+ private final BookRepository bookRepository; 
+ 
+ public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
-    public Book addBook(Book bookToPut) {
+   public Book addBook(Book bookToPut) {
         if (bookToPut == null){
             throw new BadRequestException("book must be defined");
         }
@@ -33,8 +34,18 @@ public class BookService {
         if (bookToPut.getFormat() == null){
             throw new BadRequestException("the book.format must be defined");
         }
-
-
         return bookRepository.save(bookToPut);
+    } 
+    
+      public void deleleteBook(Integer id) {
+        bookRepository.deleteById(id);
+    }
+
+    public Book getBookByTitle(String title){
+       return bookRepository.findBytitle(title); 
+    }
+
+    public List<Book> getBookByAuthorName(@RequestParam String name){
+        return bookRepository.findByAuthorName(name);
     }
 }
