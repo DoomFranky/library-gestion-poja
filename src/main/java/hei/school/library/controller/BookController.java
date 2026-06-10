@@ -11,29 +11,44 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hei.school.library.entity.Book;
 import hei.school.library.service.BookService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/book")
 public class BookController {
     private final BookService bookService;
-    public BookController ( BookService bookService){
-        this.bookService=bookService;
-    }
 
-     @GetMapping
-    public List<Book> getAll() {
-        return bookService.getAllBooks();
+    @GetMapping
+    public ResponseEntity<?> getBooks () {
+        try{
+            List<Book> listOfBooks = bookService.findAll();
+            return ResponseEntity.ok().body(listOfBooks);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
-
-     @PostMapping("/add")
-    public Book add(@RequestBody Book book) {
-        return bookService.addBook(book);
+  
+    @PostMapping("/add")
+    public ResponseEntity<?> putBooks (@RequestBody Book bookToPut) {
+      try{
+          Book book = bookService.addBook(bookToPut);
+          return ResponseEntity.ok().body(book);
+      } catch (Exception e) {
+          return ResponseEntity.internalServerError().body(e.getMessage());
     }
 
     @DeleteMapping("/delete")
     public void delete(@RequestBody Integer id){
-         bookService.deleleteBook(id);
-         System.out.println("book delete");
+       try{
+          bookService.deleleteBook(id);
+          return ResponseEntity.ok().body("book delete");
+      } catch (Exception e) {
+          return ResponseEntity.internalServerError().body(e.getMessage());
+      }
     }
 }
