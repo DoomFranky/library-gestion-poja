@@ -29,10 +29,6 @@ public class Book {
 
   private String urlImage;
 
-  @OneToOne private BookGenre genre;
-
-  @OneToOne private BookFormat format;
-
   @Enumerated(EnumType.STRING)
   private GenreEnum genre;
 

@@ -28,7 +28,7 @@ class BookServiceTest {
       List<Book> emptyList = new ArrayList<>();
       when(bookRepository.findAll()).thenReturn(emptyList);
 
-      List<Book> getBooks = bookService.findAll();
+      List<Book> getBooks = bookService.getAllBooks();
       assertEquals(emptyList, getBooks);
     }
   }

@@ -54,15 +54,6 @@ public class BookFormatService {
   public void deleteFormat(Integer id) {
     BookFormat format = getFormatById(id);
 
-    // Nettoyer les relations ManyToMany avant suppression
-    format
-        .getBooks()
-        .forEach(
-            book -> {
-              book.getFormats().remove(format);
-              bookRepository.save(book);
-            });
-
     bookFormatRepository.delete(format);
   }
 
