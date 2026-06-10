@@ -14,8 +14,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "order")
-public class Order {
+@Table(name = "order_command")
+public class OrderCommand {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

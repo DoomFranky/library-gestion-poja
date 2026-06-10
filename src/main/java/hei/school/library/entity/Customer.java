@@ -29,5 +29,5 @@ public class Customer {
     private Instant createdAt;
 
     @OneToMany
-    private List<Order> order;
+    private List<OrderCommand> orderCommand;
 }

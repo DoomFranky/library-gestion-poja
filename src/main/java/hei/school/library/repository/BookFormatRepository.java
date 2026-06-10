@@ -8,14 +8,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BookFormatRepository extends JpaRepository<BookFormat, Integer> {
+public interface BookFormatRepository extends JpaRepository<BookFormat, String> {
 
   // Recherches de base
-  BookFormat findByLabel(String label);
+  BookFormat findBySize(String size);
 
-  List<BookFormat> findByLabelContainingIgnoreCase(String label);
+  List<BookFormat> findBySizeContainingIgnoreCase(String size);
 
-  boolean existsByLabel(String label);
+  boolean existsBySize(String size);
 
   // Requête pour trouver les formats populaires
   @Query("SELECT f FROM BookFormat f WHERE SIZE(f.books) >= :minBooks")
@@ -23,5 +23,5 @@ public interface BookFormatRepository extends JpaRepository<BookFormat, Integer>
 
   // Compter les livres par format
   @Query("SELECT COUNT(b) FROM BookFormat f JOIN f.books b WHERE f.id = :formatId")
-  Long countBooksByFormatId(@Param("formatId") Integer formatId);
+  Long countBooksByFormatId(@Param("formatId") String formatId);
 }
