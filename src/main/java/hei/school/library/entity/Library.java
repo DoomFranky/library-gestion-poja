@@ -14,5 +14,6 @@ public class Library {
   @GeneratedValue(strategy = GenerationType.UUID)
   private String id;
 
-  @OneToMany private List<Book> books;
+  @OneToMany(mappedBy = "library")
+  private List<Book> book;
 }

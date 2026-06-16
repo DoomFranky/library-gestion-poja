@@ -22,6 +22,6 @@ public class PriceBook {
     private LocalDate dateOfPrice;
 
     @ManyToOne
-    @JoinColumn(name = "fk_book_copy")
+    @JoinColumn(name = "book_copy_id")
     private BookCopy bookCopy;
 }

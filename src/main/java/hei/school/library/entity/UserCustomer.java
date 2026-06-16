@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "customer")
-public class Customer {
+public class UserCustomer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -28,6 +28,6 @@ public class Customer {
     private String phone;
     private Instant createdAt;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "userCustomer")
     private List<OrderCommand> orderCommand;
 }

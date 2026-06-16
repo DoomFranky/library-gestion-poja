@@ -44,10 +44,10 @@ public class Book {
   )
   private List<Author> author;
 
-  @OneToMany
+  @OneToMany(mappedBy = "book")
   private List<BookFormat> bookFormat;
 
   @ManyToOne
-  @JoinColumn(name ="fk_library")
+  @JoinColumn(name ="library_id")
   private Library library;
 }

@@ -20,9 +20,9 @@ public class BookCopy {
     private String id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_book_format")
+    @JoinColumn(name = "book_format_id")
     private BookFormat bookFormat;
 
-    @OneToMany
-    private List<PriceBook> unitPrice;
+    @OneToMany(mappedBy = "bookCopy")
+    private List<PriceBook> priceBook;
 }

@@ -22,6 +22,6 @@ public class BookFormat {
   private Format format;
 
   @ManyToOne
-  @JoinColumn(name = "fk_book")
-  private Book books;
+  @JoinColumn(name = "book_id")
+  private Book book;
 }

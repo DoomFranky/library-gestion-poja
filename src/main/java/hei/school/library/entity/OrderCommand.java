@@ -24,8 +24,8 @@ public class OrderCommand {
     private LocalDate orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "fk_customer",nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "user_customer_id",nullable = false)
+    private UserCustomer userCustomer;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
