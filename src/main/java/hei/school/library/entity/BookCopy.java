@@ -1,27 +1,27 @@
 package hei.school.library.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
+@Entity
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "book_format")
-public class BookFormat {
-
+@Table(name = "book_copy")
+public class BookCopy {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private String id;
 
-  private String size;
-  private Format format;
-
   @ManyToOne
-  @JoinColumn(name = "book_id")
-  private Book book;
+  @JoinColumn(name = "book_format_id")
+  private BookFormat bookFormat;
+
+  @OneToMany(mappedBy = "bookCopy")
+  private List<PriceBook> priceBook;
 }

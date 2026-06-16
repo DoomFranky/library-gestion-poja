@@ -36,7 +36,7 @@ public class BookService {
     return bookRepository.save(bookToPut);
   }
 
-  public void deleleteBook(Integer id) {
+  public void deleleteBook(String id) {
     bookRepository.deleteById(id);
   }
 

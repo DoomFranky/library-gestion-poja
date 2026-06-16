@@ -40,7 +40,7 @@ public class BookController {
   }
 
   @DeleteMapping("/delete")
-  public ResponseEntity<?> delete(@RequestBody Integer id) {
+  public ResponseEntity<?> delete(@RequestBody String id) {
     try {
       bookService.deleleteBook(id);
       return ResponseEntity.ok().body("book delete");
