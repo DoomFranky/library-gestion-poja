@@ -3,6 +3,8 @@ package hei.school.library.entity;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,15 +17,15 @@ import lombok.Setter;
 @Setter
 @Table(name = "book")
 public class Book {
-  @Id private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
 
   private String isbn;
 
   private String title;
 
   private LocalDate publishDate;
-
-  private Double unitPrice;
 
   private String description;
 
@@ -34,11 +36,18 @@ public class Book {
 
   private Instant createDatetime;
 
+  @ManyToMany
+  @JoinTable(
+      name = "book_author",
+      joinColumns = @JoinColumn(name = "book_id"),
+      inverseJoinColumns = @JoinColumn(name = "author_id")
+  )
+  private List<Author> author;
+
+  @OneToMany(mappedBy = "book")
+  private List<BookFormat> bookFormat;
+
   @ManyToOne
-  @JoinColumn(name = "idAuthor")
-  private Author author;
-
-  @ManyToOne private BookFormat bookFormat;
-
-  @ManyToOne private Library library;
+  @JoinColumn(name ="library_id")
+  private Library library;
 }

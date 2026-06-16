@@ -12,11 +12,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "format")
+@Table(name = "book_format")
 public class BookFormat {
 
-  @Id private Integer id;
-  private String label;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
+  private String size;
+  private Format format;
 
-  @OneToMany private List<Book> books;
+  @ManyToOne
+  @JoinColumn(name = "book_id")
+  private Book book;
 }

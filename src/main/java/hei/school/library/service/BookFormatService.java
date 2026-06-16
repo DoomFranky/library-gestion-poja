@@ -18,7 +18,7 @@ public class BookFormatService {
 
   // CREATE
   public BookFormat createFormat(BookFormat format) {
-    if (bookFormatRepository.existsByLabel(format.getLabel())) {
+    if (bookFormatRepository.existsBySize(format.getFormat().toString())) {
       throw new RuntimeException("Un format avec ce label existe déjà");
     }
     return bookFormatRepository.save(format);
@@ -29,36 +29,36 @@ public class BookFormatService {
     return bookFormatRepository.findAll();
   }
 
-  public BookFormat getFormatById(Integer id) {
+  public BookFormat getFormatById(String id) {
     return bookFormatRepository
         .findById(id)
         .orElseThrow(() -> new RuntimeException("Format non trouvé"));
   }
 
-  public BookFormat getFormatByLabel(String label) {
-    return bookFormatRepository.findByLabel(label);
+  public BookFormat getFormatBySize(String size) {
+    return bookFormatRepository.findBySize(size);
   }
 
-  public List<BookFormat> searchByLabel(String label) {
-    return bookFormatRepository.findByLabelContainingIgnoreCase(label);
+  public List<BookFormat> searchBySize(String size) {
+    return bookFormatRepository.findBySizeContainingIgnoreCase(size);
   }
 
   // UPDATE
-  public BookFormat updateFormat(Integer id, BookFormat formatDetails) {
+  public BookFormat updateFormat(String id, BookFormat formatDetails) {
     BookFormat format = getFormatById(id);
-    format.setLabel(formatDetails.getLabel());
+    format.setFormat(formatDetails.getFormat());
     return bookFormatRepository.save(format);
   }
 
   // DELETE
-  public void deleteFormat(Integer id) {
+  public void deleteFormat(String id) {
     BookFormat format = getFormatById(id);
 
     bookFormatRepository.delete(format);
   }
 
   // Méthodes statistiques
-  public Long getBooksCountByFormat(Integer formatId) {
+  public Long getBooksCountByFormat(String formatId) {
     return bookFormatRepository.countBooksByFormatId(formatId);
   }
 
