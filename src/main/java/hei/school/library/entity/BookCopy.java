@@ -1,12 +1,11 @@
 package hei.school.library.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Entity
 @Setter
@@ -15,14 +14,14 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "book_copy")
 public class BookCopy {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "book_format_id")
-    private BookFormat bookFormat;
+  @ManyToOne
+  @JoinColumn(name = "book_format_id")
+  private BookFormat bookFormat;
 
-    @OneToMany(mappedBy = "bookCopy")
-    private List<PriceBook> priceBook;
+  @OneToMany(mappedBy = "bookCopy")
+  private List<PriceBook> priceBook;
 }

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,14 +39,13 @@ public class Book {
   @JoinTable(
       name = "book_author",
       joinColumns = @JoinColumn(name = "book_id"),
-      inverseJoinColumns = @JoinColumn(name = "author_id")
-  )
+      inverseJoinColumns = @JoinColumn(name = "author_id"))
   private List<Author> author;
 
   @OneToMany(mappedBy = "book")
   private List<BookFormat> bookFormat;
 
   @ManyToOne
-  @JoinColumn(name ="library_id")
+  @JoinColumn(name = "library_id")
   private Library library;
 }

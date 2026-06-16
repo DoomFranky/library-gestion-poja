@@ -1,12 +1,11 @@
 package hei.school.library.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -15,13 +14,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Table(name = "price_book")
 public class PriceBook {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
-    private Double unitPrice;
-    private LocalDate dateOfPrice;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "book_copy_id")
-    private BookCopy bookCopy;
+  private Double unitPrice;
+  private LocalDate dateOfPrice;
+
+  @ManyToOne
+  @JoinColumn(name = "book_copy_id")
+  private BookCopy bookCopy;
 }
