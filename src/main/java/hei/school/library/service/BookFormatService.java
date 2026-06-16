@@ -1,6 +1,5 @@
 package hei.school.library.service;
 
-import hei.school.library.entity.BookFormat;
 import hei.school.library.repository.BookFormatRepository;
 import hei.school.library.repository.BookRepository;
 import java.util.List;

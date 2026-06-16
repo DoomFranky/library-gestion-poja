@@ -1,16 +1,29 @@
 package hei.school.library.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-@Entity
-@Table(name = "genre")
-public class Genre {
-  @Id private Integer id;
-  private String label;
+public enum Genre {
+  ROMAN,
+  SCIENCE_FICTION,
+  FANTASY,
+  POLICIER,
+  THRILLER,
+  HORREUR,
+  AVENTURE,
+  BIOGRAPHIE,
+  HISTOIRE,
+  POESIE,
+  THEATRE,
+  JEUNESSE,
+  BANDE_DESSINEE,
+  MANGA,
+  DEVELOPPEMENT_PERSONNEL,
+  RELIGION,
+  PHILOSOPHIE,
+  SCIENCES,
+  INFORMATIQUE,
+  ECONOMIE,
+  POLITIQUE,
+  ART,
+  CUISINE,
+  VOYAGE,
+  SANTE
 }

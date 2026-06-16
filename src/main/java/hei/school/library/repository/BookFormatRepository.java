@@ -1,6 +1,5 @@
 package hei.school.library.repository;
 
-import hei.school.library.entity.BookFormat;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

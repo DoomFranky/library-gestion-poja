@@ -1,43 +1,61 @@
 package hei.school.library.entity;
 
 import jakarta.persistence.*;
-import java.time.Instant;
+import lombok.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.LocalDateTime;
+import java.util.List;
 
-@AllArgsConstructor
 @Entity
-@NoArgsConstructor
-@Getter
-@Setter
 @Table(name = "book")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Book {
-  @Id private Integer id;
 
-  private String isbn;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "book_id")
+    private Integer bookId;
 
-  private String title;
+    @Column(name = "title", length = 255)
+    private String title;
 
-  private LocalDate publishDate;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "genre_id")
+    private Genre genre;
 
-  private Double unitPrice;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "format_id")
+    private Format format;
 
-  private String description;
+    @Column(name = "publish_date")
+    private LocalDate publishDate;
 
-  private String urlImage;
+    @Column(name = "unit_price", precision = 10, scale = 2)
+    private BigDecimal unitPrice;
 
-  @Enumerated(EnumType.STRING)
-  private GenreEnum genre;
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
-  private Instant createDatetime;
+    @Column(name = "image_url", length = 500)
+    private String imageUrl;
 
-  @ManyToOne
-  @JoinColumn(name = "idAuthor")
-  private Author author;
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
-  @Enumerated(EnumType.STRING)
-  private Format format;
+    @ManyToMany
+    @JoinTable(
+        name = "book_author",
+        joinColumns = @JoinColumn(name = "book_id"),
+        inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private List<Author> authors;
+
+    @OneToMany(mappedBy = "book")
+    private List<Inventory> inventories;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
 }

@@ -5,18 +5,18 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "format")
+@Table(name = "payment_method")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class Format {
+public class PaymentMethod {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "format_id")
-    private Integer formatId;
+    @Column(name = "payment_method_id")
+    private Integer paymentMethodId;
 
     @Column(name = "label", length = 80)
     private String label;
 
-    @OneToMany(mappedBy = "format")
-    private List<Book> books;
+    @OneToMany(mappedBy = "paymentMethod")
+    private List<Payment> payments;
 }
