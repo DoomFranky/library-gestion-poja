@@ -28,6 +28,6 @@ public class Customer {
     private String phone;
     private Instant createdAt;
 
-    @OneToMany
+    @OneToMany(mappedBy = "customer")
     private List<OrderCommand> orderCommand;
 }
