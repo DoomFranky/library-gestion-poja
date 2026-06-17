@@ -1,6 +1,7 @@
 package hei.school.library.controller;
 
 import hei.school.library.entity.Book;
+import hei.school.library.exception.BadRequestException;
 import hei.school.library.service.BookService;
 import java.util.List;
 import java.util.UUID;
@@ -30,9 +31,18 @@ public class BookController {
     }
   }
 
-  @GetMapping("/")
-  public ResponseEntity<?> getBookById(@PathVariable UUID id) {
-    return ResponseEntity.ok().build();
+  @GetMapping("/{id}")
+  public ResponseEntity<?> getBookById(@PathVariable String id) {
+    try {
+      Book book = bookService.getBookById(id);
+      if (book == null)
+        return ResponseEntity.notFound().build();
+      return ResponseEntity.ok().body(book);
+    } catch (BadRequestException e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }catch (Exception e) {
+      return ResponseEntity.internalServerError().body(e.getMessage());
+    }
   }
 
   @PostMapping("/add")
