@@ -4,7 +4,6 @@ import hei.school.library.entity.Book;
 import hei.school.library.service.BookService;
 import java.util.List;
 import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +31,7 @@ public class BookController {
   }
 
   @GetMapping("/")
-  public ResponseEntity<?> getBookById(@PathVariable UUID id){
+  public ResponseEntity<?> getBookById(@PathVariable UUID id) {
     return ResponseEntity.ok().build();
   }
 
