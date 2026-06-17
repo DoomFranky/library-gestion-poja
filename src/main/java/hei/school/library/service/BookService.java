@@ -58,6 +58,8 @@ public class BookService {
     }catch (IllegalArgumentException e) {
       throw new BadRequestException("the book.id must be a UUID");
     }
-    return bookRepository.findBookById(id);
+    Book book = bookRepository.findById(id).orElse(null);
+    if (book == null) throw new BadRequestException("book not found");
+    return book;
   }
 }
