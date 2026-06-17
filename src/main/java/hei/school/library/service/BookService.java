@@ -4,6 +4,8 @@ import hei.school.library.entity.Book;
 import hei.school.library.exception.BadRequestException;
 import hei.school.library.repository.BookRepository;
 import java.util.List;
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;

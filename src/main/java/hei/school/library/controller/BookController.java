@@ -3,6 +3,8 @@ package hei.school.library.controller;
 import hei.school.library.entity.Book;
 import hei.school.library.service.BookService;
 import java.util.List;
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,11 @@ public class BookController {
     } catch (Exception e) {
       return ResponseEntity.internalServerError().body(e.getMessage());
     }
+  }
+
+  @GetMapping("/")
+  public ResponseEntity<?> getBookById(@PathVariable UUID id){
+    return ResponseEntity.ok().build();
   }
 
   @PostMapping("/add")
