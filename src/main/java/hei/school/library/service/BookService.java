@@ -49,10 +49,15 @@ public class BookService {
     return bookRepository.findByAuthorName(name);
   }
 
-  public Book getBookById(UUID id) {
+  public Book getBookById(String id) {
     if (id == null) throw new BadRequestException("the book.id must be defined");
-    if (id.toString().isEmpty()) throw new BadRequestException("the book.id can't be empty");
-    if (id.toString().isBlank()) throw new BadRequestException("the book.id can't be blank");
-    return bookRepository.findBookById(id.toString());
+    if (id.isEmpty()) throw new BadRequestException("the book.id can't be empty");
+    if (id.isBlank()) throw new BadRequestException("the book.id can't be blank");
+    try {
+      UUID.fromString(id);
+    }catch (IllegalArgumentException e) {
+      throw new BadRequestException("the book.id must be a UUID");
+    }
+    return bookRepository.findBookById(id);
   }
 }
