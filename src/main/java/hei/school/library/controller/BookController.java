@@ -1,9 +1,11 @@
 package hei.school.library.controller;
 
 import hei.school.library.entity.Book;
+import hei.school.library.exception.BadRequestException;
 import hei.school.library.service.BookService;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,25 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/book")
+@RequestMapping("/books")
 public class BookController {
   private final BookService bookService;
 
   @GetMapping
-  public ResponseEntity<?> getBooks() {
-    try {
-      List<Book> listOfBooks = bookService.getAllBooks();
-      return ResponseEntity.ok().body(listOfBooks);
-    } catch (Exception e) {
-      return ResponseEntity.internalServerError().body(e.getMessage());
-    }
+  public List<Book> getBooks() {
+      return bookService.getAllBooks();
   }
 
   @PostMapping("/add")
   public ResponseEntity<?> putBooks(@RequestBody Book bookToPut) {
     try {
-      Book book = bookService.addBook(bookToPut);
-      return ResponseEntity.ok().body(book);
+      return ResponseEntity.status(HttpStatus.CREATED).body(bookService.addBook(bookToPut));
+    } catch (BadRequestException e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
     } catch (Exception e) {
       return ResponseEntity.internalServerError().body(e.getMessage());
     }
