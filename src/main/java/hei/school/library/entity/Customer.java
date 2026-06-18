@@ -43,7 +43,7 @@ public class Customer {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "customer")
-    private List<Order> orders;
+    private List<OrderCommand> orders;
 
     @OneToMany(mappedBy = "customer")
     private List<Sale> sales;

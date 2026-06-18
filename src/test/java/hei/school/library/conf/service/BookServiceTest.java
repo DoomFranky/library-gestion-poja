@@ -1,4 +1,4 @@
-package hei.school.library.service;
+package hei.school.library.conf.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import hei.school.library.entity.Book;
 import hei.school.library.exception.BadRequestException;
 import hei.school.library.repository.BookRepository;
+import hei.school.library.service.BookService;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Nested;

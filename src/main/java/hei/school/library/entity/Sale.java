@@ -22,7 +22,7 @@ public class Sale {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
-    private Order order;
+    private OrderCommand order;
 
     @Column(name = "sale_date")
     private LocalDateTime saleDate;

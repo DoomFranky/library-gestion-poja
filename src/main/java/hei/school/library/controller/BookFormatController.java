@@ -2,63 +2,38 @@ package hei.school.library.controller;
 
 import hei.school.library.service.BookFormatService;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/formats")
+@RequestMapping("/books/format")
+@AllArgsConstructor
 public class BookFormatController {
 
-  @Autowired private BookFormatService bookFormatService;
+  private BookFormatService bookFormatService;
 
   @PostMapping
-  public ResponseEntity<BookFormat> createFormat(@RequestBody BookFormat format) {
-    BookFormat createdFormat = bookFormatService.createFormat(format);
-    return new ResponseEntity<>(createdFormat, HttpStatus.CREATED);
+  public BookFormat createFormat(@RequestBody BookFormat format) {
+    return bookFormatService.createFormat(format);
   }
 
   @GetMapping
-  public ResponseEntity<List<BookFormat>> getAllFormats() {
-    return ResponseEntity.ok(bookFormatService.getAllFormats());
+  public List<BookFormat> getAllFormats() {
+    return bookFormatService.getAllFormats();
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<BookFormat> getFormatById(@PathVariable Integer id) {
-    return ResponseEntity.ok(bookFormatService.getFormatById(id));
-  }
-
-  @GetMapping("/label/{label}")
-  public ResponseEntity<BookFormat> getFormatByLabel(@PathVariable String label) {
-    return ResponseEntity.ok(bookFormatService.getFormatByLabel(label));
-  }
-
-  @GetMapping("/search")
-  public ResponseEntity<List<BookFormat>> searchFormats(@RequestParam String label) {
-    return ResponseEntity.ok(bookFormatService.searchByLabel(label));
+  public BookFormat getFormatById(@PathVariable String id) {
+    return bookFormatService.getFormatById(id);
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<BookFormat> updateFormat(
-      @PathVariable Integer id, @RequestBody BookFormat format) {
-    return ResponseEntity.ok(bookFormatService.updateFormat(id, format));
+  public BookFormat updateFormat(@PathVariable String id, @RequestBody BookFormat bookFormat) {
+    return bookFormatService.updateFormat(id, bookFormat);
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteFormat(@PathVariable Integer id) {
+  public void deleteFormat(@PathVariable String id) {
     bookFormatService.deleteFormat(id);
-    return ResponseEntity.noContent().build();
-  }
-
-  @GetMapping("/{id}/books-count")
-  public ResponseEntity<Long> getBooksCountByFormat(@PathVariable Integer id) {
-    return ResponseEntity.ok(bookFormatService.getBooksCountByFormat(id));
-  }
-
-  @GetMapping("/popular")
-  public ResponseEntity<List<BookFormat>> getPopularFormats(
-      @RequestParam(defaultValue = "5") int minBooks) {
-    return ResponseEntity.ok(bookFormatService.getPopularFormats(minBooks));
   }
 }
