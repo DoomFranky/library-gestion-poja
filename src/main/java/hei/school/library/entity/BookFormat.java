@@ -18,7 +18,7 @@ public class BookFormat {
   @GeneratedValue(strategy = GenerationType.UUID)
   private String id;
 
-  private String size;
+  @Enumerated(EnumType.STRING)
   private Format format;
 
   @ManyToOne
