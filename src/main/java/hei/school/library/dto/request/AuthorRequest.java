@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class AuthorRequest {
-    private String fullName;
+  private String fullName;
 }

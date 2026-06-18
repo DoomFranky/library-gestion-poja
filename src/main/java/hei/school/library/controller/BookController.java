@@ -4,7 +4,6 @@ import hei.school.library.entity.Book;
 import hei.school.library.exception.BadRequestException;
 import hei.school.library.service.BookService;
 import java.util.List;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,12 +34,11 @@ public class BookController {
   public ResponseEntity<?> getBookById(@PathVariable String id) {
     try {
       Book book = bookService.getBookById(id);
-      if (book == null)
-        return ResponseEntity.notFound().build();
+      if (book == null) return ResponseEntity.notFound().build();
       return ResponseEntity.ok().body(book);
     } catch (BadRequestException e) {
       return ResponseEntity.badRequest().body(e.getMessage());
-    }catch (Exception e) {
+    } catch (Exception e) {
       return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
