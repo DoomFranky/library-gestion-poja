@@ -23,7 +23,7 @@ public class BookController {
 
   @GetMapping
   public List<Book> getBooks() {
-      return bookService.getAllBooks();
+    return bookService.getAllBooks();
   }
 
   @PostMapping("/add")

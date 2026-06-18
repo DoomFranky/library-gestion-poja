@@ -1,7 +1,6 @@
 package hei.school.library.controller;
 
 import hei.school.library.entity.BookFormat;
-import hei.school.library.entity.Format;
 import hei.school.library.service.BookFormatService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -30,8 +29,7 @@ public class BookFormatController {
   }
 
   @PutMapping("/{id}")
-  public BookFormat updateFormat(
-      @PathVariable String id, @RequestBody BookFormat bookFormat) {
+  public BookFormat updateFormat(@PathVariable String id, @RequestBody BookFormat bookFormat) {
     return bookFormatService.updateFormat(id, bookFormat);
   }
 
