@@ -1,5 +1,6 @@
 package hei.school.library.controller;
 
+import hei.school.library.entity.BookFormat;
 import hei.school.library.service.BookFormatService;
 import java.util.List;
 import lombok.AllArgsConstructor;

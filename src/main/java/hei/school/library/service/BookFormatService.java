@@ -1,5 +1,6 @@
 package hei.school.library.service;
 
+import hei.school.library.entity.BookFormat;
 import hei.school.library.repository.BookFormatRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;

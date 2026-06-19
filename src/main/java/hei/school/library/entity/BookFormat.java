@@ -20,7 +20,7 @@ public class BookFormat {
 
   @ManyToOne
   @JoinColumn(name = "format_format_id")
-  private Format format;
+  private BookFormat format;
 
   @ManyToOne
   @JoinColumn(name = "book_id")
