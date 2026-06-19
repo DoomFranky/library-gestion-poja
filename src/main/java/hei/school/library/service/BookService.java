@@ -4,6 +4,7 @@ import hei.school.library.entity.Book;
 import hei.school.library.exception.BadRequestException;
 import hei.school.library.repository.BookRepository;
 import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,5 +47,16 @@ public class BookService {
 
   public List<Book> getBookByAuthorName(@RequestParam String name) {
     return bookRepository.findByAuthorName(name);
+  }
+
+  public Book getBookById(String id) {
+    if (id == null || id.trim().isEmpty() || id.isBlank())
+      throw new BadRequestException("the book.id must be defined and not empty or blank");
+    try {
+      UUID.fromString(id);
+    } catch (IllegalArgumentException e) {
+      throw new BadRequestException("the book.id must be a UUID");
+    }
+    return bookRepository.findById(id).orElseThrow(() -> new BadRequestException("book not found"));
   }
 }

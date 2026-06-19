@@ -26,6 +26,19 @@ public class BookController {
     return bookService.getAllBooks();
   }
 
+  @GetMapping("/{id}")
+  public ResponseEntity<?> getBookById(@PathVariable String id) {
+    try {
+      Book book = bookService.getBookById(id);
+      if (book == null) return ResponseEntity.notFound().build();
+      return ResponseEntity.ok().body(book);
+    } catch (BadRequestException e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    } catch (Exception e) {
+      return ResponseEntity.internalServerError().body(e.getMessage());
+    }
+  }
+
   @PostMapping("/add")
   public ResponseEntity<?> putBooks(@RequestBody Book bookToPut) {
     try {

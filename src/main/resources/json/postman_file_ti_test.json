@@ -1,0 +1,212 @@
+{
+  "info": {
+    "name": "Library API Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Create a Book (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"isbn\": \"978-2-1234-5678-9\",\n  \"title\": \"Le Seigneur des Anneaux\",\n  \"publishDate\": \"1954-07-29\",\n  \"description\": \"Un chef-d'œuvre de la fantasy\",\n  \"urlImage\": \"https://example.com/images/lotr.jpg\",\n  \"genre\": \"FANTASY\",\n  \"author\": [\n    {\n      \"id\": \"123e4567-e89b-12d3-a456-426614174001\",\n      \"name\": \"J.R.R. Tolkien\"\n    }\n  ],\n  \"bookFormat\": [\n    {\n      \"id\": \"123e4567-e89b-12d3-a456-426614174002\",\n      \"size\": \"15x23\",\n      \"format\": \"MEDIUM\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/book/add",
+          "host": ["http://localhost:8080"],
+          "path": ["api", "book", "add"]
+        }
+      }
+    },
+    {
+      "name": "2. Create a Book with Invalid UUID (Should Fail)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"invalid-uuid-1234\",\n  \"isbn\": \"978-2-1234-5678-9\",\n  \"title\": \"Test Book with Invalid UUID\",\n  \"publishDate\": \"2023-01-01\",\n  \"genre\": \"ROMAN\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/book/add",
+          "host": ["http://localhost:8080"],
+          "path": ["api", "book", "add"]
+        }
+      }
+    },
+    {
+      "name": "3. Create Another Book",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"223e4567-e89b-12d3-a456-426614174001\",\n  \"isbn\": \"978-2-9876-5432-1\",\n  \"title\": \"Harry Potter à l'école des sorciers\",\n  \"publishDate\": \"1997-06-26\",\n  \"description\": \"Le début des aventures du célèbre sorcier\",\n  \"urlImage\": \"https://example.com/images/hp1.jpg\",\n  \"genre\": \"FANTASY\",\n  \"author\": [\n    {\n      \"id\": \"223e4567-e89b-12d3-a456-426614174002\",\n      \"name\": \"J.K. Rowling\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/book/add",
+          "host": ["http://localhost:8080"],
+          "path": ["api", "book", "add"]
+        }
+      }
+    },
+    {
+      "name": "4. Get All Books (GET)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/book",
+          "host": ["http://localhost:8080"],
+          "path": ["api", "book"]
+        }
+      }
+    },
+    {
+      "name": "5. Get Book by ID (Valid UUID)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/book/123e4567-e89b-12d3-a456-426614174000",
+          "host": ["http://localhost:8080"],
+          "path": ["api", "book", "123e4567-e89b-12d3-a456-426614174000"]
+        }
+      }
+    },
+    {
+      "name": "6. Get Book by ID (Invalid UUID - Should Fail)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/book/invalid-uuid",
+          "host": ["http://localhost:8080"],
+          "path": ["api", "book", "invalid-uuid"]
+        }
+      }
+    },
+    {
+      "name": "7. Get Book by ID (Non-existent - Should Fail)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/book/999e4567-e89b-12d3-a456-426614174999",
+          "host": ["http://localhost:8080"],
+          "path": ["api", "book", "999e4567-e89b-12d3-a456-426614174999"]
+        }
+      }
+    },
+    {
+      "name": "8. Delete Book (Valid UUID)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "\"223e4567-e89b-12d3-a456-426614174001\"",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/book/delete",
+          "host": ["http://localhost:8080"],
+          "path": ["api", "book", "delete"]
+        }
+      }
+    },
+    {
+      "name": "9. Delete Book (Invalid UUID - Should Fail)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "\"invalid-uuid\"",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/book/delete",
+          "host": ["http://localhost:8080"],
+          "path": ["api", "book", "delete"]
+        }
+      }
+    },
+    {
+      "name": "10. Delete Book (Empty ID - Should Fail)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "\"\"",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/book/delete",
+          "host": ["http://localhost:8080"],
+          "path": ["api", "book", "delete"]
+        }
+      }
+    }
+  ]
+}
