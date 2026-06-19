@@ -1,8 +1,12 @@
 package hei.school.library.service;
 
-import hei.school.library.entity.Book;
+import hei.school.library.dto.request.BookRequest;
+import hei.school.library.entity.*;
 import hei.school.library.exception.BadRequestException;
 import hei.school.library.repository.BookRepository;
+
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -18,13 +22,11 @@ public class BookService {
     return bookRepository.findAll();
   }
 
-  public Book addBook(Book bookToPut) {
+  public Book addBook(BookRequest bookToPut) {
     if (bookToPut == null) {
       throw new BadRequestException("book must be defined");
     }
-    if (bookToPut.getId() == null) {
-      throw new BadRequestException("the book.id must be defined");
-    }
+
     if (bookToPut.getIsbn() == null) {
       throw new BadRequestException("the book.isbn must be defined");
     }
@@ -34,7 +36,19 @@ public class BookService {
     if (bookToPut.getBookFormat() == null) {
       throw new BadRequestException("the book.format must be defined");
     }
-    return bookRepository.save(bookToPut);
+    Book book = new Book();
+    book.setId(UUID.randomUUID().toString());
+    book.setIsbn(bookToPut.getIsbn());
+    book.setTitle(bookToPut.getTitle());
+    book.setPublishDate(bookToPut.getPublishDate());
+    book.setDescription(bookToPut.getDescription());
+    book.setUrlImage(bookToPut.getUrlImage());
+    book.setGenre(bookToPut.getGenre());
+    book.setCreateDatetime(Instant.now());
+    book.setAuthor(null);
+    book.setBookFormat(null);
+    book.setLibrary(null);
+    return bookRepository.save(book);
   }
 
   public void deleleteBook(String id) {

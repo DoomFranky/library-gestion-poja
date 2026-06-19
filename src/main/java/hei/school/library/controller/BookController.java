@@ -1,5 +1,6 @@
 package hei.school.library.controller;
 
+import hei.school.library.dto.request.BookRequest;
 import hei.school.library.entity.Book;
 import hei.school.library.exception.BadRequestException;
 import hei.school.library.service.BookService;
@@ -40,7 +41,7 @@ public class BookController {
   }
 
   @PostMapping("/add")
-  public ResponseEntity<?> putBooks(@RequestBody Book bookToPut) {
+  public ResponseEntity<?> putBooks(@RequestBody BookRequest bookToPut) {
     try {
       return ResponseEntity.status(HttpStatus.CREATED).body(bookService.addBook(bookToPut));
     } catch (BadRequestException e) {
