@@ -1,7 +1,10 @@
 package hei.school.library.service;
 
-import hei.school.library.entity.Book;
+import hei.school.library.dto.request.BookRequest;
+import hei.school.library.entity.*;
 import hei.school.library.exception.BadRequestException;
+import hei.school.library.exception.NotFoundException;
+import hei.school.library.mapper.BookMapper;
 import hei.school.library.repository.BookRepository;
 import java.util.List;
 import java.util.UUID;
@@ -14,17 +17,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BookService {
   private final BookRepository bookRepository;
 
+  // bad practice but can't make it work without it
+  private final BookMapper bookMapper = new BookMapper();
+
   public List<Book> getAllBooks() {
     return bookRepository.findAll();
   }
 
-  public Book addBook(Book bookToPut) {
+  public Book addBook(BookRequest bookToPut) {
     if (bookToPut == null) {
       throw new BadRequestException("book must be defined");
     }
-    if (bookToPut.getId() == null) {
-      throw new BadRequestException("the book.id must be defined");
-    }
+
     if (bookToPut.getIsbn() == null) {
       throw new BadRequestException("the book.isbn must be defined");
     }
@@ -34,7 +38,8 @@ public class BookService {
     if (bookToPut.getBookFormat() == null) {
       throw new BadRequestException("the book.format must be defined");
     }
-    return bookRepository.save(bookToPut);
+    Book book = bookMapper.bookRequestToBook(bookToPut);
+    return bookRepository.save(book);
   }
 
   public void deleleteBook(String id) {
@@ -57,6 +62,6 @@ public class BookService {
     } catch (IllegalArgumentException e) {
       throw new BadRequestException("the book.id must be a UUID");
     }
-    return bookRepository.findById(id).orElseThrow(() -> new BadRequestException("book not found"));
+    return bookRepository.findById(id).orElseThrow(() -> new NotFoundException("book not found"));
   }
 }
