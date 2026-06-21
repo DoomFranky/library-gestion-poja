@@ -30,8 +30,6 @@ public class BookRequest {
 
     private GenreEnum genre;
 
-    private Instant createDatetime;
-
     private List<Author> author;
 
     private List<BookFormat> bookFormat;
