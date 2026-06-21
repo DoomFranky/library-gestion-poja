@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BookService {
   private final BookRepository bookRepository;
 
-  private final BookMapper bookMapper;
+  // bad practice but can't make it work without it
+  private final BookMapper bookMapper = new BookMapper();
 
   public List<Book> getAllBooks() {
     return bookRepository.findAll();

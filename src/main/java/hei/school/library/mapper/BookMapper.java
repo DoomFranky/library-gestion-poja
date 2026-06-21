@@ -4,9 +4,11 @@ import hei.school.library.dto.request.BookRequest;
 import hei.school.library.entity.Book;
 import java.time.Instant;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class BookMapper {
   public Book bookRequestToBook(BookRequest bookRequest) {
     return new Book(
