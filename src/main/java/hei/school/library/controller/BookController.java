@@ -3,6 +3,7 @@ package hei.school.library.controller;
 import hei.school.library.dto.request.BookRequest;
 import hei.school.library.entity.Book;
 import hei.school.library.exception.BadRequestException;
+import hei.school.library.exception.NotFoundException;
 import hei.school.library.service.BookService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,8 @@ public class BookController {
       return ResponseEntity.ok().body(book);
     } catch (BadRequestException e) {
       return ResponseEntity.badRequest().body(e.getMessage());
+    } catch (NotFoundException e) {
+      return ResponseEntity.notFound().build();
     } catch (Exception e) {
       return ResponseEntity.internalServerError().body(e.getMessage());
     }

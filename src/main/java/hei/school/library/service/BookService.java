@@ -3,6 +3,7 @@ package hei.school.library.service;
 import hei.school.library.dto.request.BookRequest;
 import hei.school.library.entity.*;
 import hei.school.library.exception.BadRequestException;
+import hei.school.library.exception.NotFoundException;
 import hei.school.library.mapper.BookMapper;
 import hei.school.library.repository.BookRepository;
 import java.util.List;
@@ -61,6 +62,6 @@ public class BookService {
     } catch (IllegalArgumentException e) {
       throw new BadRequestException("the book.id must be a UUID");
     }
-    return bookRepository.findById(id).orElseThrow(() -> new BadRequestException("book not found"));
+    return bookRepository.findById(id).orElseThrow(() -> new NotFoundException("book not found"));
   }
 }

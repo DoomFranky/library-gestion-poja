@@ -28,7 +28,7 @@ class BookServiceTest {
 
   @InjectMocks private BookService bookService;
 
-  @InjectMocks BookMapper bookMapper;
+  @InjectMocks private BookMapper bookMapper;
 
   Book book;
 
