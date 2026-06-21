@@ -5,9 +5,6 @@ import hei.school.library.entity.*;
 import hei.school.library.exception.BadRequestException;
 import hei.school.library.mapper.BookMapper;
 import hei.school.library.repository.BookRepository;
-
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
