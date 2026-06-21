@@ -3,6 +3,7 @@ package hei.school.library.service;
 import hei.school.library.dto.request.BookRequest;
 import hei.school.library.entity.*;
 import hei.school.library.exception.BadRequestException;
+import hei.school.library.mapper.BookMapper;
 import hei.school.library.repository.BookRepository;
 
 import java.time.Instant;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class BookService {
   private final BookRepository bookRepository;
+
+  private final BookMapper bookMapper;
 
   public List<Book> getAllBooks() {
     return bookRepository.findAll();
@@ -36,18 +39,7 @@ public class BookService {
     if (bookToPut.getBookFormat() == null) {
       throw new BadRequestException("the book.format must be defined");
     }
-    Book book = new Book();
-    book.setId(UUID.randomUUID().toString());
-    book.setIsbn(bookToPut.getIsbn());
-    book.setTitle(bookToPut.getTitle());
-    book.setPublishDate(bookToPut.getPublishDate());
-    book.setDescription(bookToPut.getDescription());
-    book.setUrlImage(bookToPut.getUrlImage());
-    book.setGenre(bookToPut.getGenre());
-    book.setCreateDatetime(Instant.now());
-    book.setAuthor(null);
-    book.setBookFormat(null);
-    book.setLibrary(null);
+    Book book = bookMapper.bookRequestToBook(bookToPut);
     return bookRepository.save(book);
   }
 
