@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class StockMovementRequest {
   private Book book;
-  private Double quantity;
+  private Integer quantity;
   private String reason;
   private MovementTypeEnum movementTypeEnum;
 }
