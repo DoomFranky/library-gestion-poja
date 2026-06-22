@@ -12,8 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StockMovementRequest {
-    private Book book;
-    private Double quantity;
-    private String reason;
-    private MovementTypeEnum movementTypeEnum;
+  private Book book;
+  private Double quantity;
+  private String reason;
+  private MovementTypeEnum movementTypeEnum;
 }
