@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/stockmovement")
 public class StockMovementController {
   private StockMovementService stockMovementService;
 
