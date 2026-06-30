@@ -1,0 +1,211 @@
+openapi: 3.0.0
+info:
+  title: Library Management API
+  version: 1.0.0
+
+paths:
+  /books:
+    get:
+      summary: Liste tous les livres
+      operationId: getBooks
+      tags:
+        - Books
+      responses:
+        '200':
+          description: Liste des livres
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+
+  /books/{id}:
+    get:
+      summary: Récupère un livre par son ID
+      operationId: getBookById
+      tags:
+        - Books
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Livre trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Requête invalide
+        '404':
+          description: Livre non trouvé
+        '500':
+          description: Erreur serveur
+
+  /books/add:
+    post:
+      summary: Ajoute un nouveau livre
+      operationId: addBook
+      tags:
+        - Books
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
+      responses:
+        '201':
+          description: Livre créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Requête invalide
+        '500':
+          description: Erreur serveur
+
+  /books/delete:
+    delete:
+      summary: Supprime un livre
+      operationId: deleteBook
+      tags:
+        - Books
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+              description: ID du livre à supprimer
+      responses:
+        '200':
+          description: Livre supprimé
+        '500':
+          description: Erreur serveur
+	
+
+
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        isbn:
+          type: string
+        title:
+          type: string
+        publishDate:
+          type: string
+          format: date
+        description:
+          type: string
+        urlImage:
+          type: string
+        genre:
+          $ref: '#/components/schemas/GenreEnum'
+        createDatetime:
+          type: string
+          format: date-time
+        author:
+          type: array
+          items:
+            $ref: '#/components/schemas/Author'
+        bookFormat:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookFormat'
+        library:
+          $ref: '#/components/schemas/Library'
+
+    BookRequest:
+      type: object
+      properties:
+        isbn:
+          type: string
+        title:
+          type: string
+        publishDate:
+          type: string
+          format: date
+        description:
+          type: string
+        urlImage:
+          type: string
+        genre:
+          $ref: '#/components/schemas/GenreEnum'
+        author:
+          type: array
+          items:
+            $ref: '#/components/schemas/Author'
+        bookFormat:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookFormat'
+        library:
+          $ref: '#/components/schemas/Library'
+
+    GenreEnum:
+      type: string
+      enum:
+        - ROMAN
+        - SCIENCE_FICTION
+        - FANTASY
+        - POLICIER
+        - THRILLER
+        - HORREUR
+        - AVENTURE
+        - BIOGRAPHIE
+        - HISTOIRE
+        - POESIE
+        - THEATRE
+        - JEUNESSE
+        - BANDE_DESSINEE
+        - MANGA
+        - DEVELOPPEMENT_PERSONNEL
+        - RELIGION
+        - PHILOSOPHIE
+        - SCIENCES
+        - INFORMATIQUE
+        - ECONOMIE
+        - POLITIQUE
+        - ART
+        - CUISINE
+        - VOYAGE
+        - SANTE
+
+    Author:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+
+    BookFormat:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        format:
+          type: string
+          enum:
+          - SMALL
+          - MEDIUM
+          - LARGE
+
+    Library:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
