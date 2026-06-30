@@ -19,12 +19,13 @@ public interface StockMovementRepository extends JpaRepository<StockMovement, St
           + "WHERE sm.book_id = :book_id ORDER BY (b.title,bf.format)")
   StockQuantityDTO findQuantityOfBookById(@Param("book_id") String id);
 
-  @Query("SELECT SUM("+
-          "CASE WHEN sm.movement_type='OUT' THEN sm.quantity*-1 ELSE sm.quantity" +
-          "), b.title,bf.format FROM book b"
+  @Query(
+      "SELECT SUM("
+          + "CASE WHEN sm.movement_type='OUT' THEN sm.quantity*-1 ELSE sm.quantity"
+          + "), b.title,bf.format FROM book b"
           + "JOIN b.book_format bf "
           + "JOIN bf.book_copy bc "
-          + "JOIN bc.stockMovement sm " +
-          "WHERE sm.book_copy_id = :book_copy_id ORDER BY (b.title,bf.format)")
-  StockQuantityDTO findQuantityOfBookCopyById(@Param("book_copy_id")String id);
+          + "JOIN bc.stockMovement sm "
+          + "WHERE sm.book_copy_id = :book_copy_id ORDER BY (b.title,bf.format)")
+  StockQuantityDTO findQuantityOfBookCopyById(@Param("book_copy_id") String id);
 }

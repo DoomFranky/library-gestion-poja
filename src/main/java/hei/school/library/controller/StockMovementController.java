@@ -59,7 +59,8 @@ public class StockMovementController {
     }
   }
 
-  public StockQuantityDTO getStockQuantityOfBookById(String id) {
+  @GetMapping("/stock/book/{id}")
+  public StockQuantityDTO getStockQuantityOfBookById(@PathVariable String id) {
     return stockMovementService.findStockQuantityOfBookById(id);
   }
 }

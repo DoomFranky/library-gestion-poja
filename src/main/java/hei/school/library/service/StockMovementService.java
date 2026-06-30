@@ -42,9 +42,14 @@ public class StockMovementService {
     StockMovement stockMovement =
         stockMovementMapper.stockMovementRequestToStockMovement(stockMovementToPut);
     if (stockMovement.getMovementTypeEnum().equals(MovementTypeEnum.OUT)) {
-      if (findStockQuantityOfBookCopyById(stockMovement.getBookCopy().getId())<stockMovement.getQuantity()){
-        throw new BadRequestException("Can't take "+stockMovement.getQuantity()+" of book, only: "
-                +findStockQuantityOfBookCopyById(stockMovement.getBookCopy().getId())+" in stock");
+      if (findStockQuantityOfBookCopyById(stockMovement.getBookCopy().getId())
+          < stockMovement.getQuantity()) {
+        throw new BadRequestException(
+            "Can't take "
+                + stockMovement.getQuantity()
+                + " of book, only: "
+                + findStockQuantityOfBookCopyById(stockMovement.getBookCopy().getId())
+                + " in stock");
       }
     }
     return stockMovementRepository.save(stockMovement);

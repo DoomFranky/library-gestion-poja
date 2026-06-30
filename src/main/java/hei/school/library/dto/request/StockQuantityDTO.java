@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StockQuantityDTO {
-    private Integer quantity;
-    private String bookTitle;
-    private String bookFormat;
+  private Integer quantity;
+  private String bookTitle;
+  private String bookFormat;
 }
