@@ -18,8 +18,8 @@ public class StockMovement {
   private String id;
 
   @ManyToOne
-  @JoinColumn(name = "book_id")
-  private Book book;
+  @JoinColumn(name = "book_copy_id")
+  private BookCopy bookCopy;
 
   private Integer quantity;
 

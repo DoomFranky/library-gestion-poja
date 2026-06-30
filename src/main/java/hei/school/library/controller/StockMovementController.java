@@ -1,6 +1,7 @@
 package hei.school.library.controller;
 
 import hei.school.library.dto.request.StockMovementRequest;
+import hei.school.library.dto.request.StockQuantityDTO;
 import hei.school.library.entity.StockMovement;
 import hei.school.library.exception.BadRequestException;
 import hei.school.library.exception.NotFoundException;
@@ -58,7 +59,7 @@ public class StockMovementController {
     }
   }
 
-  public Integer getStockQuantityOfBookById(String id) {
+  public StockQuantityDTO getStockQuantityOfBookById(String id) {
     return stockMovementService.findStockQuantityOfBookById(id);
   }
 }

@@ -1,6 +1,8 @@
 package hei.school.library.service;
 
 import hei.school.library.dto.request.StockMovementRequest;
+import hei.school.library.dto.request.StockQuantityDTO;
+import hei.school.library.entity.MovementTypeEnum;
 import hei.school.library.entity.StockMovement;
 import hei.school.library.exception.BadRequestException;
 import hei.school.library.exception.NotFoundException;
@@ -28,8 +30,8 @@ public class StockMovementService {
       throw new BadRequestException("stockMovement must be defined");
     }
 
-    if (stockMovementToPut.getBook() == null) {
-      throw new BadRequestException("the stockMovement.book must be defined");
+    if (stockMovementToPut.getBookCopy() == null) {
+      throw new BadRequestException("the stockMovement.bookCopy must be defined");
     }
     if (stockMovementToPut.getMovementTypeEnum() == null) {
       throw new BadRequestException("the stockMovement.movementType must be defined");
@@ -39,6 +41,12 @@ public class StockMovementService {
     }
     StockMovement stockMovement =
         stockMovementMapper.stockMovementRequestToStockMovement(stockMovementToPut);
+    if (stockMovement.getMovementTypeEnum().equals(MovementTypeEnum.OUT)) {
+      if (findStockQuantityOfBookCopyById(stockMovement.getBookCopy().getId())<stockMovement.getQuantity()){
+        throw new BadRequestException("Can't take "+stockMovement.getQuantity()+" of book, only: "
+                +findStockQuantityOfBookCopyById(stockMovement.getBookCopy().getId())+" in stock");
+      }
+    }
     return stockMovementRepository.save(stockMovement);
   }
 
@@ -59,7 +67,11 @@ public class StockMovementService {
         .orElseThrow(() -> new NotFoundException("stockMovement not found"));
   }
 
-  public Integer findStockQuantityOfBookById(String id) {
+  public StockQuantityDTO findStockQuantityOfBookById(String id) {
     return stockMovementRepository.findQuantityOfBookById(id);
+  }
+
+  private StockQuantityDTO findStockQuantityOfBookCopyById(String id) {
+    return stockMovementRepository.findQuantityOfBookCopyById(id);
   }
 }

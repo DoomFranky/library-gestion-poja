@@ -12,7 +12,7 @@ public class StockMovementMapper {
       StockMovementRequest stockMovementToPut) {
     return new StockMovement(
         UUID.randomUUID().toString(),
-        stockMovementToPut.getBook(),
+        stockMovementToPut.getBookCopy(),
         stockMovementToPut.getQuantity(),
         stockMovementToPut.getReason(),
         stockMovementToPut.getMovementTypeEnum(),
