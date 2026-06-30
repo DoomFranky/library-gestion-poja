@@ -42,7 +42,7 @@ public class StockMovementService {
     StockMovement stockMovement =
         stockMovementMapper.stockMovementRequestToStockMovement(stockMovementToPut);
     if (stockMovement.getMovementTypeEnum().equals(MovementTypeEnum.OUT)) {
-      if (findStockQuantityOfBookCopyById(stockMovement.getBookCopy().getId())
+      if (findStockQuantityOfBookCopyById(stockMovement.getBookCopy().getId()).getQuantity()
           < stockMovement.getQuantity()) {
         throw new BadRequestException(
             "Can't take "
