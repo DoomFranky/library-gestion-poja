@@ -175,7 +175,101 @@ paths:
         '500':
           description: Erreur serveur
       
-  
+  /books/format:
+    get:
+      summary: récupère la liste de format d'un livre
+      operationId: getAllBookFormat
+      tags:
+        - BookFormats
+      responses:
+        '200':
+          description: Format du livre trouvée
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookFormat'
+
+  /books/format/id:
+    get:
+      summary: récupère un format d'un livre par son id
+      operationId: getBookFormatById
+      tags:
+        - BookFormats
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Format du livre trouvée
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookFormat'
+        '400':
+          description: Requête invalide
+        '404':
+          description: Format du livre non trouvée
+        '500':
+          description: Erreur serveur
+
+  /books/format/id:
+    put:
+      summary: Met à jour un format d'un livre
+      operationId: updateBookFormat
+      tags:
+        - BookFormats
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookFormat'
+      responses:
+        '200':
+          description: Format du livre mis à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookFormat'
+        '400':
+          description: Requête invalide
+        '404':
+          description: Format du livre non trouvé
+        '500':
+          description: Erreur serveur
+
+  /books/format/delete/{id}:
+    delete:
+      summary: Supprime un format d'un livre
+      operationId: deleteBookFormat
+      tags:
+        - BookFormats
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+              type: string
+              description: ID du format du livre à supprimer
+      responses:
+        '200':
+          description: Format du livre supprimée
+        '500':
+          description: Erreur serveur
+
+  /
 
 components:
   schemas:
