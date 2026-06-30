@@ -88,10 +88,10 @@ paths:
           description: Livre supprimé
         '500':
           description: Erreur serveur
-	
+
   /books/copy:
     get:
-      summary: récupère la liste de copie d'un livre
+      summary: Récupère la liste des copies d'un livre
       operationId: getAllBookCopy
       tags:
         - BookCopies
@@ -105,7 +105,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
 
-  /books/copy/id:
+  /books/copy/{id}:
     get:
       summary: récupère une copie d'un livre par son id
       operationId: getBookCopyById
@@ -130,6 +130,23 @@ paths:
           description: Copie du livre non trouvée
         '500':
           description: Erreur serveur
+    delete:
+      summary: Supprime une copie d'un livre
+      operationId: deleteBookCopy
+      tags:
+        - BookCopies
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID de la copie du livre à supprimer
+      responses:
+        '200':
+          description: Copie du livre supprimée
+        '500':
+          description: Erreur serveur
 
   /books/copy/add:
     post:
@@ -142,7 +159,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BookCopy'
+              $ref: '#/components/schemas/BookCopyRequest'
       responses:
         '201':
           description: Copie du livre créée avec succès
@@ -152,26 +169,6 @@ paths:
                 $ref: '#/components/schemas/BookCopy'
         '400':
           description: Requête invalide
-        '500':
-          description: Erreur serveur
-
-  /books/copy/delete/{id}:
-    delete:
-      summary: Supprime une copie d'un livre
-      operationId: deleteBookCopy
-      tags:
-        - BookCopies
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-              type: string
-              description: ID de la copie du livre à supprimer
-      responses:
-        '200':
-          description: Copie du livre supprimée
         '500':
           description: Erreur serveur
       
@@ -191,7 +188,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/BookFormat'
 
-  /books/format/id:
+  /books/format/{id}:
     get:
       summary: récupère un format d'un livre par son id
       operationId: getBookFormatById
@@ -205,7 +202,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Format du livre trouvée
+          description: Format du livre trouvé
           content:
             application/json:
               schema:
@@ -213,11 +210,9 @@ paths:
         '400':
           description: Requête invalide
         '404':
-          description: Format du livre non trouvée
+          description: Format du livre non trouvé
         '500':
           description: Erreur serveur
-
-  /books/format/id:
     put:
       summary: Met à jour un format d'un livre
       operationId: updateBookFormat
@@ -248,8 +243,6 @@ paths:
           description: Format du livre non trouvé
         '500':
           description: Erreur serveur
-
-  /books/format/delete/{id}:
     delete:
       summary: Supprime un format d'un livre
       operationId: deleteBookFormat
@@ -284,7 +277,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/StockMovement'
 
-  /stockMovements/id:
+  /stockMovements/{id}:
     get:
       summary: récupère un mouvement de stock par son id
       operationId: getStockMovementById
@@ -321,7 +314,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StockMovement'
+              $ref: '#/components/schemas/StockMovementRequest'
       responses:
         '201':
           description: Mouvement de stock créé avec succès
@@ -334,7 +327,7 @@ paths:
         '500':
           description: Erreur serveur
 
-  /stockMovements/delete/id:
+  /stockMovements/delete/{id}:
     delete:
       summary: Supprimer un livre spécifique
       operationId: deleteStockMovementById
@@ -358,7 +351,34 @@ paths:
         '404':
           description: Mouvement de stock non trouvé
         '500':
-          description: Erreur serveur''
+          description: Erreur serveur
+
+  /stock/book/{id}:
+    get:
+      summary: Récupère la quantité en stock d'un livre.
+      operationId: getStockQuantityOfBookById
+      tags: 
+        - StockMovements
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: nombres des stocks d'une livre spécifique trouvéQuantité en stock du livre récupérée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockQuantityDTO'
+        '400':
+          description: Requête invalide
+        '404':
+          description: Stock du livre non trouvé
+        '500':
+          description: Erreur serveur
+      
 
 
 
@@ -539,7 +559,7 @@ components:
           type: string
           format: date-time
 
-    stockMovementRequest:
+    StockMovementRequest:
       type: object
       properties:
         bookCopy:
@@ -554,7 +574,7 @@ components:
             - IN
             - OUT
 
-    stockQuantityDTO:
+    StockQuantityDTO:
       type: object
       properties:
         quantity:
