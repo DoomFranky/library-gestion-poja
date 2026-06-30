@@ -261,15 +261,106 @@ paths:
           required: true
           schema:
             type: string
-              type: string
-              description: ID du format du livre à supprimer
+            description: ID du format du livre à supprimer
       responses:
         '200':
           description: Format du livre supprimée
         '500':
           description: Erreur serveur
 
-  /
+  /stockMovements:
+    get:
+      summary: récupère la liste des mouvements de stock
+      operationId: getAllStockMovements
+      tags:
+        - StockMovements
+      responses:
+        '200':
+          description: Mouvements de stock trouvés
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StockMovement'
+
+  /stockMovements/id:
+    get:
+      summary: récupère un mouvement de stock par son id
+      operationId: getStockMovementById
+      tags:
+        - StockMovements
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Mouvement de stock trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockMovement'
+        '400':
+          description: Requête invalide
+        '404':
+          description: Mouvement de stock non trouvé
+        '500':
+          description: Erreur serveur
+
+  /stockMovements/add:
+    post:
+      summary: Ajoute un mouvement de stock
+      operationId: addStockMovement
+      tags:
+        - StockMovements
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StockMovement'
+      responses:
+        '201':
+          description: Mouvement de stock créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockMovement'
+        '400':
+          description: Requête invalide
+        '500':
+          description: Erreur serveur
+
+  /stockMovements/delete/id:
+    delete:
+      summary: Supprimer un livre spécifique
+      operationId: deleteStockMovementById
+      tags:
+        - StockMovements
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Mouvement de stock supprimé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StockMovement'
+        '400':
+          description: Requête invalide
+        '404':
+          description: Mouvement de stock non trouvé
+        '500':
+          description: Erreur serveur''
+
+
 
 components:
   schemas:
@@ -428,3 +519,47 @@ components:
         endDate:
           type: string
           format: date-time
+
+    StockMovement:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        bookCopy:
+          $ref: '#/components/schemas/BookCopy'
+        quantity:
+          type: integer
+        movementTypeEnum:
+          type: string
+          enum:
+            - IN
+            - OUT
+        createDatetime:
+          type: string
+          format: date-time
+
+    stockMovementRequest:
+      type: object
+      properties:
+        bookCopy:
+          $ref: '#/components/schemas/BookCopy'
+        quantity:
+          type: integer
+        reason:
+          type: string
+        movementTypeEnum:
+          type: string
+          enum:
+            - IN
+            - OUT
+
+    stockQuantityDTO:
+      type: object
+      properties:
+        quantity:
+          type: integer
+        bookTitle:
+          type: string
+        bookFormat:
+          type: string
