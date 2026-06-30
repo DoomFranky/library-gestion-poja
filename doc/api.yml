@@ -89,7 +89,93 @@ paths:
         '500':
           description: Erreur serveur
 	
+  /books/copy:
+    get:
+      summary: récupère la liste de copie d'un livre
+      operationId: getAllBookCopy
+      tags:
+        - BookCopies
+      responses:
+        '200':
+          description: Copie du livre trouvée
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
 
+  /books/copy/id:
+    get:
+      summary: récupère une copie d'un livre par son id
+      operationId: getBookCopyById
+      tags:
+        - BookCopies
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Copie du livre trouvée
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookCopy'
+        '400':
+          description: Requête invalide
+        '404':
+          description: Copie du livre non trouvée
+        '500':
+          description: Erreur serveur
+
+  /books/copy/add:
+    post:
+      summary: Ajoute une copie d'un livre
+      operationId: addBookCopy
+      tags:
+        - BookCopies
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookCopy'
+      responses:
+        '201':
+          description: Copie du livre créée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookCopy'
+        '400':
+          description: Requête invalide
+        '500':
+          description: Erreur serveur
+
+  /books/copy/delete/{id}:
+    delete:
+      summary: Supprime une copie d'un livre
+      operationId: deleteBookCopy
+      tags:
+        - BookCopies
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+              type: string
+              description: ID de la copie du livre à supprimer
+      responses:
+        '200':
+          description: Copie du livre supprimée
+        '500':
+          description: Erreur serveur
+      
+  
 
 components:
   schemas:
@@ -209,3 +295,42 @@ components:
         id:
           type: string
           format: uuid
+
+    BookCopy:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        bookFormat:
+          $ref: '#/components/schemas/BookFormat'
+        priceBook:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceBook'
+
+    BookCopyRequest:
+      type: object
+      properties:
+        bookFormat:
+          $ref: '#/components/schemas/BookFormat'
+        priceBook:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceBook'
+    
+    PriceBook:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        price:
+          type: number
+          format: float
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
