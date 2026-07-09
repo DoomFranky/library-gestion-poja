@@ -10,8 +10,8 @@ public interface GenrePriceRepository extends JpaRepository<Book, String> {
   @Query(
       """
           SELECT
-              b.genre, 
-              SUM(pb.unitPrice) 
+              b.genre,
+              SUM(pb.unitPrice)
           FROM OrderCommand o
           JOIN o.books b
           JOIN b.bookFormat bf
