@@ -11,20 +11,20 @@ import org.springframework.stereotype.Repository;
 public interface StockMovementRepository extends JpaRepository<StockMovement, String> {
   @Query(
       "SELECT SUM("
-          + "CASE WHEN sm.movement_type='OUT' THEN sm.quantity*-1 ELSE sm.quantity END"
-          + ") ,b.title, bf.format FROM book b "
-          + "JOIN b.book_format bf "
-          + "JOIN bf.book_copy bc "
+          + "CASE WHEN sm.movement_type='OUT' THEN sm.quantity * -1 ELSE sm.quantity END"
+          + ") ,b.title, bf.format FROM Book b "
+          + "JOIN b.bookFormat bf "
+          + "JOIN bf.bookCopy bc "
           + "JOIN bc.stockMovement sm "
-          + "WHERE sm.book_id = :book_id ORDER BY (b.title,bf.format)")
+          + "WHERE sm.book_id = :book_id ORDER BY (b.title, bf.format)")
   StockQuantityDTO findQuantityOfBookById(@Param("book_id") String id);
 
   @Query(
       "SELECT SUM("
-          + "CASE WHEN sm.movement_type='OUT' THEN sm.quantity*-1 ELSE sm.quantity"
-          + "), b.title,bf.format FROM book b"
-          + "JOIN b.book_format bf "
-          + "JOIN bf.book_copy bc "
+          + "CASE WHEN sm.movement_type='OUT' THEN sm.quantity * -1 ELSE sm.quantity END "
+          + "), b.title,bf.format FROM Book b "
+          + "JOIN b.bookFormat bf "
+          + "JOIN bf.bookCopy bc "
           + "JOIN bc.stockMovement sm "
           + "WHERE sm.book_copy_id = :book_copy_id ORDER BY (b.title,bf.format)")
   StockQuantityDTO findQuantityOfBookCopyById(@Param("book_copy_id") String id);
