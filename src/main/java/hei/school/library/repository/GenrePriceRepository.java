@@ -9,10 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 public interface GenrePriceRepository extends JpaRepository<Book, String> {
   @Query(
       """
-          SELECT new hei.school.library.dto.GenreRevenueDTO(
+          SELECT
               b.genre,
               SUM(pb.unitPrice)
-          )
           FROM OrderCommand o
           JOIN o.books b
           JOIN b.bookFormat bf
