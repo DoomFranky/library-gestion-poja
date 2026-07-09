@@ -1,6 +1,7 @@
 package hei.school.library.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +25,7 @@ public class BookFormat {
   @ManyToOne
   @JoinColumn(name = "book_id")
   private Book book;
+
+  @OneToMany(mappedBy = "bookFormat")
+  private List<BookCopy> bookCopies;
 }
