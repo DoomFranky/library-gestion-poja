@@ -46,4 +46,3 @@ public class BookControllerVerifyTest {
         );
     }
  }
-git checkout -b feat/mahefa-test
