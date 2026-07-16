@@ -6,6 +6,8 @@ import hei.school.library.exception.BadRequestException;
 import hei.school.library.exception.NotFoundException;
 import hei.school.library.service.BookService;
 import java.util.List;
+
+import hei.school.library.service.BookVerificationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/books")
 public class BookController {
   private final BookService bookService;
+  private final BookVerificationService bookVerificationService;
 
   @GetMapping
   public List<Book> getBooks() {
@@ -62,5 +65,12 @@ public class BookController {
     } catch (Exception e) {
       return ResponseEntity.internalServerError().body(e.getMessage());
     }
+  }
+
+  @GetMapping("/verify/{isbn}")
+  public ResponseEntity<Void> verifyBook(@PathVariable String isbn) {
+    bookVerificationService.checkBookExists(isbn);
+    return ResponseEntity.ok().build();
+
   }
 }
